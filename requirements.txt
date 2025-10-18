@@ -1,0 +1,11 @@
+langchain
+langchain-openai
+langchain-core
+langchain-community
+streamlit
+python-dotenv
+langserve
+fastapi
+uvicorn
+pydantic
+sse_starlette
