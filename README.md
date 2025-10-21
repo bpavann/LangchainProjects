@@ -64,6 +64,19 @@ The primary goal is to bridge the gap between **LLM architecture**, **local infe
   Integrate with Hugging Face models and embeddings to enhance retrieval-based applications.
 
 ---
+### 5️⃣ MedicoAgent — Clinical ReAct RAG Assistant
+- **Purpose:**
+MedicoAgent is a ReAct (Reason + Act)–based medical assistant designed for clinical reasoning, knowledge retrieval, and metric computation using LangChain, FAISS, and a local LLM (Ollama Llama 3.1).
+It demonstrates how retrieval-augmented reasoning pipelines can work entirely offline, maintaining both data privacy and explainability.
+- **Features:**
+- Built with Streamlit UI for an interactive experience.
+  - Uses local LLM (Ollama – Llama 3.1) for private, offline inference.
+  - Employs FAISS vector search and MiniLM-L6 embeddings for efficient document retrieval.
+  - Integrates LangChain ReAct framework for reasoning-based action steps (calculations, retrieval, summarization).
+  - Includes built-in safety disclaimers to ensure ethical use and educational purpose only.
+- **Architecture:**
+The system connects the Streamlit frontend, LangChain ReAct controller, FAISS retriever, and Ollama LLM, forming a fully local, privacy-focused pipeline.
+---
 
 ## ⚙️ Setup & Installation
 
