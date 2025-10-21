@@ -35,38 +35,17 @@ It operates on a **ReAct (Reason + Act)** pipeline — combining **retrieval-aug
 
 ## 🏗️ Architecture
 
-```text
-+------------------------------+
-|        User Interface        |
-|        (Streamlit)           |
-+--------------+---------------+
-               |
-               v
-+------------------------------+
-|  ReAct Controller (LangChain)|
-|   - Decides actions          |
-|   - Parses model output      |
-+--------------+---------------+
-               |
-               v
-+------------------------------+
-|       Tools (Python)         |
-| - calc_bmi, calc_map, etc.   |
-+--------------+---------------+
-               |
-               v
-+------------------------------+
-|      FAISS RAG Retriever     |
-|   - Embeddings (MiniLM-L6)  |
-|   - Top-k chunk retrieval    |
-+--------------+---------------+
-               |
-               v
-+------------------------------+
-|    Local LLM (Ollama)        |
-|    Model: llama3.1           |
-+------------------------------+
 
+---
+
+### **3️⃣ Optional: Use Mermaid**
+GitHub supports Mermaid for diagrams, which looks nicer and scales better:
+```mermaid
+flowchart TD
+    A[User Interface (Streamlit)] --> B[ReAct Controller (LangChain)]
+    B --> C[Tools (Python)]
+    C --> D[FAISS RAG Retriever]
+    D --> E[Local LLM (Ollama llama3.1)]
 ```
 
 ## 🧰 Installation
