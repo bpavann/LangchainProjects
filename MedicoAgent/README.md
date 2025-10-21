@@ -3,9 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-App-red?logo=streamlit)
 ![LangChain](https://img.shields.io/badge/LangChain-Enabled-green?logo=chainlink)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
 ![FAISS](https://img.shields.io/badge/FAISS-RAG_VectorDB-orange)
-![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 ---
 
@@ -59,7 +57,7 @@ It operates on a **ReAct (Reason + Act)** pipeline — combining **retrieval-aug
                v
 +------------------------------+
 |      FAISS RAG Retriever     |
-|   - Embeddings (MiniLM-L6)   |
+|   - Embeddings (MiniLM-L6)  |
 |   - Top-k chunk retrieval    |
 +--------------+---------------+
                |
@@ -68,6 +66,7 @@ It operates on a **ReAct (Reason + Act)** pipeline — combining **retrieval-aug
 |    Local LLM (Ollama)        |
 |    Model: llama3.1           |
 +------------------------------+
+
 ```
 
 ## 🧰 Installation
