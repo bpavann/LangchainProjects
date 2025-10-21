@@ -2,17 +2,15 @@ import os
 import uvicorn
 from dotenv import load_dotenv
 from fastapi import FastAPI
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
 from langchain_community.llms import Ollama
 from langserve import add_routes
 
 load_dotenv()
 
-os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY")
-os.environ["LANGCHAIN_TRACING_V2"]="true"
-os.environ["LANGCHAIN_PROJECT"]="INTEGRATED_CHATBOT2"
+os.environ["LANGSMITH_API_KEY"]=os.getenv("LANGSMITH_API_KEY")
+os.environ["LANGSMITH_TRACING_V2"]="true"
+os.environ["LANGSMITH_PROJECT"]="INTEGRATED_CHATBOT2"
 
 app=FastAPI(
     title="Integrated Chatbot API",

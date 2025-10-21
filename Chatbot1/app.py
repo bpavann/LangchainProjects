@@ -9,9 +9,9 @@ from langchain_community.llms import Ollama
 load_dotenv()
 
 #LangSmith Tracing V2
-os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_PROJECT"] = "Chatbot1"
+os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
+os.environ["LANGSMITH_TRACING_V2"] = "true"
+os.environ["LANGSMITH_PROJECT"] = "Chatbot1"
 
 
 #Prompt
