@@ -42,10 +42,10 @@ It operates on a **ReAct (Reason + Act)** pipeline — combining **retrieval-aug
 GitHub supports Mermaid for diagrams, which looks nicer and scales better:
 ```mermaid
 flowchart TD
-    A[User Interface (Streamlit)] --> B[ReAct Controller (LangChain)]
-    B --> C[Tools (Python)]
-    C --> D[FAISS RAG Retriever]
-    D --> E[Local LLM (Ollama llama3.1)]
+    A["User Interface - Streamlit"] --> B["ReAct Controller - LangChain"]
+    B --> C["Tools - Python"]
+    C --> D["FAISS RAG Retriever"]
+    D --> E["Local LLM - Ollama llama3.1"]
 ```
 
 ## 🧰 Installation
