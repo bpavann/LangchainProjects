@@ -35,7 +35,11 @@ arxiv=ArxivQueryRun(api_wrapper=arxiv_wrapper)
 loader=WebBaseLoader("https://modelcontextprotocol.io/docs/getting-started/intro")
 document=loader.load()
 text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=200).split_documents(document)
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2",
+    model_kwargs={'device': 'cpu'}
+)
+
 db=Chroma(collection_name="MultiRag",embedding_function=embeddings)
 doc_id=db.add_documents(text_splitter)
 retriever = db.as_retriever(search_type="similarity", search_kwargs={"k":3})
