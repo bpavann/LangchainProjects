@@ -7,6 +7,7 @@ from langchain_chroma import Chroma
 from langchain_ollama.llms import OllamaLLM
 from langchain.agents.middleware import dynamic_prompt, ModelRequest
 from langchain.agents import create_agent
+import streamlit as st
 
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
@@ -15,25 +16,6 @@ load_dotenv()
 os.environ["LANGSMITH_API_KEY"] = os.getenv("LANGSMITH_API_KEY")
 os.environ["LANGSMITH_TRACING_V2"]="true"
 os.environ["LANGSMITH_PROJECT"]="SingleRAG"
-
-# Load PDF document
-loader = PyMuPDFLoader("../SingleRag/SSLLM.pdf", mode="single")
-document = loader.load()
-# print(f"Number of documents loaded: {len(document)}")  # Removed for Streamlit
-
-# Split documents into chunks
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-chunks = text_splitter.split_documents(document)
-# print(f"Number of chunks created: {len(chunks)}")  # Removed for Streamlit
-
-# Create vector store
-db = Chroma(collection_name="SSLLM_collection", embedding_function=HuggingFaceEmbeddings())
-doc_id = db.add_documents(chunks)
-# print("Vector store created successfully.")  # Removed
-
-# Initialize Ollama LLM
-llm = OllamaLLM(model="llama3.1")
-# print("Ollama LLM initialized successfully.")  # Removed
 
 # Dynamic prompt middleware
 @dynamic_prompt
@@ -49,10 +31,6 @@ def prompt_context(request: ModelRequest) -> str:
     )
     return system_message
 
-# Create agent
-agent = create_agent(llm, tools=[], middleware=[prompt_context])
-
-import streamlit as st
 
 # --- PAGE CONFIG ---
 st.set_page_config(

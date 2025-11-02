@@ -6,8 +6,6 @@ streamlit
 python-dotenv
 langserve
 fastapi
-faiss-cpu
-faiss-gpu
 uvicorn
 pydantic
 sse_starlette
@@ -18,3 +16,5 @@ sentence-transformers
 faiss-cpu
 requests
 langchain_chroma
+arxiv
+wikipedia
