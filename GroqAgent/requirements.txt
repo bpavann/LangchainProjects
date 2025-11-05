@@ -1,0 +1,13 @@
+streamlit
+python-dotenv
+langchain
+langchain-community
+langchain-chroma
+langchain-ollama
+langchain-groq
+chromadb
+ollama
+tiktoken
+requests
+bs4
+PyMuPDF

@@ -57,18 +57,27 @@ llm=ChatOllama(model="llama3.1")
 
 #Creating DYNAMIC PROMPT FUNCTION
 @dynamic_prompt
-def prompt(request: ModelRequest)-> str:
-    """Inject context into state messages."""
-    last_query = request.state["messages"][-1].text
-    docs_content = "\n\n".join(f"{doc.page_content}\nMetadata: {doc.metadata}" for doc in document)
+def prompt_context(request: ModelRequest) -> str:
+    """Add top-3 retrieved context and user query into system prompt."""
+    # Get user input
+    query = request.state["messages"][-1].text.strip() if request.state["messages"] else "<no question>"
+    # Retrieve top-3 relevant chunks
+    retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 3})
+    docs = retriever.invoke(query) if query else []
+    # Combine retrieved text
+    context = "\n\n".join(doc.page_content for doc in docs) if docs else "No relevant context found."
     system_message = (
-        """You are a helpful AI assistant. Use the following context to answer the question.
-        Think step by step before providing a detailed answer."""
-        f"\n\n{docs_content}"
+        f"""You are a helpful AI assistant. Use the following context to answer the question.
+        Think step by step before providing a detailed answer.
+        Context:
+        {context}
+        Question:
+        {query}
+        """
     )
     return system_message
 
-agent=create_agent(llm,tools=Tools,middleware=[prompt])
+agent=create_agent(llm,tools=Tools,middleware=[prompt_context])
 
 # response = agent.invoke({"messages": [{"role": "user", "content": "Summarize the research papers about Transformer model "}]})
 # print("Agent response:", response)

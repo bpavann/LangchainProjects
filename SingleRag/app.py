@@ -20,14 +20,22 @@ os.environ["LANGSMITH_PROJECT"]="SingleRAG"
 # Dynamic prompt middleware
 @dynamic_prompt
 def prompt_context(request: ModelRequest) -> str:
-    """Inject context into state messages."""
-    last_query = request.state["messages"][-1].text
-    retriever = db.as_retriever(search_type="similarity", search_kwargs={"k":3})
-    docs_content = "\n\n".join(f"{doc.page_content}\nMetadata: {doc.metadata}" for doc in document)
+    """Add top-3 retrieved context and user query into system prompt."""
+    # Get user input
+    query = request.state["messages"][-1].text.strip() if request.state["messages"] else "<no question>"
+    # Retrieve top-3 relevant chunks
+    retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 3})
+    docs = retriever.invoke(query) if query else []
+    # Combine retrieved text
+    context = "\n\n".join(doc.page_content for doc in docs) if docs else "No relevant context found."
     system_message = (
-        """You are a helpful AI assistant. Use the following context to answer the question.
-        Think step by step before providing a detailed answer."""
-        f"\n\n{docs_content}"
+        f"""You are a helpful AI assistant. Use the following context to answer the question.
+        Think step by step before providing a detailed answer.
+        Context:
+        {context}
+        Question:
+        {query}
+        """
     )
     return system_message
 
@@ -72,8 +80,12 @@ if uploaded_file is not None:
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     chunks = text_splitter.split_documents(document)
 
+    embeddings = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2",
+        model_kwargs={'device': 'cpu'}
+        )
     # Create vector store
-    db = Chroma(collection_name="SSLLM_collection", embedding_function=HuggingFaceEmbeddings())
+    db = Chroma(collection_name="SSLLM_collection", embedding_function=embeddings)
     doc_id = db.add_documents(chunks)
 
     # Reinitialize Ollama LLM and agent
