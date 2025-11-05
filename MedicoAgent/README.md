@@ -38,7 +38,7 @@ It operates on a **ReAct (Reason + Act)** pipeline — combining **retrieval-aug
 
 ---
 
-### **3️⃣ Optional: Use Mermaid**
+### **3️⃣ : Use Mermaid**
 GitHub supports Mermaid for diagrams, which looks nicer and scales better:
 ```mermaid
 flowchart TD
