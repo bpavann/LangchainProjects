@@ -86,7 +86,8 @@ Accepts user input.
 Streams model-generated responses in real time.
 
 ## 📊 **Example Usage**
-**Input:**
+- **Input:**
 > What is Generative AI?
-**Output:**
+
+- **Output:**
 > Generative AI refers to models capable of creating new data — such as text, images, or music — similar to the data they were trained on. It uses deep learning techniques like transformers and diffusion models to generate original outputs.
