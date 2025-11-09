@@ -6,6 +6,7 @@ from langchain_groq import ChatGroq
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 #from langchain_huggingface import HuggingFaceEmbeddings
+#from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_ollama import OllamaEmbeddings
 from langchain_chroma import Chroma
 from langchain.agents import create_agent
@@ -25,6 +26,7 @@ def vectore_embedding():
         st.session_state.docs=st.session_state.loader.load()
         st.session_state.text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         st.session_state.documents=st.session_state.text_splitter.split_documents(st.session_state.docs)
+        #st.session_state.embeddings= GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
         st.session_state.embeddings=OllamaEmbeddings(model="llama3.1")
         st.session_state.db=Chroma(collection_name="Ollama_gemma_docs",embedding_function=st.session_state.embeddings)
         st.session_state.db_ids=st.session_state.db.add_documents(st.session_state.documents)
